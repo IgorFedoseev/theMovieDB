@@ -4,11 +4,11 @@ import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_widget.d
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
 void main() {
-  runApp(const App());
+  runApp(const AppMovie());
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class AppMovie extends StatelessWidget {
+  const AppMovie({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
