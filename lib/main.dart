@@ -27,7 +27,7 @@ class AppMovie extends StatelessWidget {
       ),
       routes: {
         '/sign_in': (context) => const SignInWidget(),
-        '/main_screen': (context) => const MainScreenWidget(), //MainScreenWidget(), const ExampleTextField(),
+        '/main_screen': (context) => const ExampleTextField(), //MainScreenWidget(), ExampleTextField(),
       },
       initialRoute: '/sign_in',
     );
