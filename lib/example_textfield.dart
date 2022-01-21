@@ -108,7 +108,7 @@ class MyPainter extends CustomPainter {
     final arcPaint = Paint();
     arcPaint.color = activeLineColor;
     arcPaint.style = PaintingStyle.stroke;
-    arcPaint.strokeWidth = 10.0;
+    arcPaint.strokeWidth = lineWidth;
     arcPaint.strokeCap = StrokeCap.round;
     canvas.drawArc(
       arcOffsetAndSize,
@@ -150,8 +150,8 @@ class PercentText extends StatelessWidget {
     return Text(
       '${(percent * 100).round()}%',
       style: const TextStyle(
-        color: Colors.amber,
-        fontSize: 18,
+        color: Colors.white,
+        fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
     );
