@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/app_images.dart';
@@ -20,6 +19,7 @@ class MovieDetailsMainWidget extends StatelessWidget {
         _OverviewText(),
         SizedBox(height: 25),
         _Staff(),
+        SizedBox(height: 20.0),
       ],
     );
   }
