@@ -36,13 +36,13 @@ const jsonString = '''
         "street": "Baumana",
         "house": "17A",
         "flat": 3
-        }
+        },
         {
         "city": "Samara",
         "street": "Volzhskaya",
         "house": "45",
         "flat": 121
-        }
+        },
         {
         "city": "Piter",
         "street": "Nevskaya",
@@ -52,7 +52,7 @@ const jsonString = '''
       ]
     },
     {
-    "name": "Semen",
+      "name": "Semen",
       "surname": "Petrov",
       "age": 77,
       "addresses": [
@@ -61,13 +61,13 @@ const jsonString = '''
         "street": "Tokareva",
         "house": "111",
         "flat": 37
-        }
+        },
         {
         "city": "Chita",
         "street": "Gornaya",
         "house": "49B",
         "flat": 77
-        }
+        },
         {
         "city": "Penza",
         "street": "Surskaya",

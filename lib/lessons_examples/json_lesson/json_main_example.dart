@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/lessons_examples/json_lesson/data_human_addresses.dart';
+import 'package:lazyload_flutter_course/lessons_examples/json_lesson/human.dart';
 
 class JsonMainExample extends StatelessWidget {
   const JsonMainExample({Key? key}) : super(key: key);
@@ -63,7 +67,24 @@ class JsonExampleProvider extends InheritedWidget {
   }
 }
 
-class JsonExampleCoder{
-  void encode() {}
-  void decode() {}
+class JsonExampleCoder {
+  void encode() {
+    final objects = humans.map((e) => e.toJson()).toList();
+    final jsonString = jsonEncode(objects);
+    print (jsonString);
+  }
+
+  void decode() {
+    try {
+      final json = jsonDecode(jsonString) as List<dynamic>;
+      // jsonDecode() доступна в библ 'dart:convert'
+      final listOfHumans =
+      json.map((e) => Human.fromJson(e as Map<String, dynamic>)).toList();
+      print(listOfHumans[0].name);
+    } catch (e){
+      print (e);
+    }
+  }
+
+
 }
