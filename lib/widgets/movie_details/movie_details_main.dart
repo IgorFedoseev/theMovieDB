@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/app_images.dart';
-import 'package:lazyload_flutter_course/example_textfield.dart';
+import 'package:lazyload_flutter_course/lessons_examples/draw_radial_percent_widget/radial_percent_widget.dart';
 
 class MovieDetailsMainWidget extends StatelessWidget {
   const MovieDetailsMainWidget({Key? key}) : super(key: key);

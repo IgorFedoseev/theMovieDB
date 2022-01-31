@@ -2,14 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class ExampleTextField extends StatefulWidget {
-  const ExampleTextField({Key? key}) : super(key: key);
+class DrawRadialPercentWidget extends StatefulWidget {
+  const DrawRadialPercentWidget({Key? key}) : super(key: key);
 
   @override
-  State<ExampleTextField> createState() => _ExampleTextFieldState();
+  State<DrawRadialPercentWidget> createState() =>
+      _DrawRadialPercentWidgetState();
 }
 
-class _ExampleTextFieldState extends State<ExampleTextField> {
+class _DrawRadialPercentWidgetState extends State<DrawRadialPercentWidget> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
