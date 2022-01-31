@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/lessons_examples/inherited_widget_lesson/inherited_example.dart';
 import 'package:lazyload_flutter_course/lessons_examples/json_lesson/json_main_example.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
@@ -29,7 +30,7 @@ class AppMovie extends StatelessWidget {
       routes: {
         '/sign_in': (context) => const SignInWidget(),
         '/main_screen': (context) =>
-            const JsonMainExample(), //MainScreenWidget(), JsonMainExample()
+            const InheritedExample(), //MainScreenWidget(), JsonMainExample()
         '/main_screen/movie_details': (context) {
           final argument = ModalRoute.of(context)?.settings.arguments;
           if (argument is int) {
