@@ -12,4 +12,14 @@ class Human {
     required this.age,
     required this.adresses,
   });
+
+  factory Human.fromJson(Map<String, dynamic> json){
+    return Human(
+      name: json['name'] as String,
+      surname: json['surname'] as String,
+      age: json['age'] as int,
+      adresses: (json['addresses'] as List<dynamic>)
+          .map((e) => Address.fromJson(e as Map<String, dynamic>)).toList(),
+    );
+  }
 }
