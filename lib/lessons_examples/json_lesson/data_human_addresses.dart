@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:lazyload_flutter_course/lessons_examples/json_lesson/address.dart';
 import 'package:lazyload_flutter_course/lessons_examples/json_lesson/human.dart';
 
