@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lazyload_flutter_course/lessons_examples/inherited_widget_lesson/inherited_model_example.dart';
+import 'package:lazyload_flutter_course/lessons_examples/inherited_widget_lesson/inherited_widget_communication.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
 import 'widgets/movie_details/movie_details_widget.dart';
@@ -29,7 +29,7 @@ class AppMovie extends StatelessWidget {
       routes: {
         '/sign_in': (context) => const SignInWidget(),
         '/main_screen': (context) =>
-            const InheritedModelExample(), //MainScreenWidget(), JsonMainExample()
+            const InheritedCommunicationExample(), //MainScreenWidget(), JsonMainExample()
         '/main_screen/movie_details': (context) {
           final argument = ModalRoute.of(context)?.settings.arguments;
           if (argument is int) {
