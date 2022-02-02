@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:path/path.dart';
 import 'package:lazyload_flutter_course/lessons_examples/http_queries/domain/entity/post.dart';
 
 class ApiClient {
@@ -39,5 +40,40 @@ class ApiClient {
     final receivedData = await response.transform(utf8.decoder).toList();
     final jsonString = receivedData.join();
     return jsonString;
+  }
+
+  Future<Post?> createPost({required String title, required String body}) async{
+    final url = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    final parameters = <String, dynamic>{
+      'title': title,
+      'body': body,
+      'userId': 109
+    };
+    final request = await client.postUrl(url);
+    request.headers.set('Content-type', 'application/json; charset=UTF-8');
+    request.write(jsonEncode(parameters));
+    final response = await request.close();
+    final receivedData = await response.transform(utf8.decoder).toList();
+    final jsonString = receivedData.join();
+    final json = jsonDecode(jsonString) as Map <String, dynamic>;
+    final post = Post.fromJson(json);
+    return post;
+  }
+
+  Future<void> fileUpload(File file) async{
+    final url = Uri.parse('https://example.com');
+    final request = await client.postUrl(url);
+    request.headers.set(HttpHeaders.contentTypeHeader, ContentType.binary);
+    request.headers.add('filename', basename(file.path));
+    request.contentLength = file.lengthSync();
+    final fileStream = file.openRead();
+    await request.addStream(fileStream);
+    final httpResponse = await request.close();
+
+    if(httpResponse.statusCode != 200){
+      throw Exception('Error uploading file');
+    } else{
+      return;
+    }
   }
 }
