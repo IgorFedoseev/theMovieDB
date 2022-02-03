@@ -7,18 +7,19 @@ class HttpExampleWidgetModel extends ChangeNotifier {
   var _posts = <Post>[];
   List<Post> get posts => _posts;
 
-  Future<void> reloadPosts() async{
+  Future<void> reloadPosts() async {
     final posts = await apiClient.getPosts();
     _posts += posts;
     notifyListeners();
   }
 
-  Future<void> createPosts() async{
+  Future<void> createPosts() async {
     final posts = await apiClient.createPost(title: 'title', body: 'body');
   }
 }
 
-class HttpExampleModelProvider extends InheritedNotifier {
+class HttpExampleModelProvider
+    extends InheritedNotifier<HttpExampleWidgetModel> {
   final HttpExampleWidgetModel model;
   const HttpExampleModelProvider({
     Key? key,

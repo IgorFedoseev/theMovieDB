@@ -42,7 +42,8 @@ class _ReloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => HttpExampleModelProvider.read(context)?.model.reloadPosts(),
+      onPressed: () =>
+          HttpExampleModelProvider.read(context)?.model.reloadPosts(),
       child: Text('обновить посты'),
     );
   }
@@ -54,19 +55,23 @@ class _CreateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => HttpExampleModelProvider.read(context)?.model.createPosts(),
+      onPressed: () =>
+          HttpExampleModelProvider.read(context)?.model.createPosts(),
       child: Text('создать пост'),
     );
   }
 }
+
 class _PostsWidget extends StatelessWidget {
   const _PostsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: HttpExampleModelProvider.watch(context)?.model.posts.length ?? 0,
-      itemBuilder: (BuildContext context, int index) => _PostsRowWidget(index: index),
+      itemCount:
+          HttpExampleModelProvider.watch(context)?.model.posts.length ?? 0,
+      itemBuilder: (BuildContext context, int index) =>
+          _PostsRowWidget(index: index),
     );
   }
 }
@@ -91,4 +96,3 @@ class _PostsRowWidget extends StatelessWidget {
     );
   }
 }
-

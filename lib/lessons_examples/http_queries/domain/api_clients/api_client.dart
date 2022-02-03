@@ -25,6 +25,7 @@ class ApiClient {
   // }
 
   Future<List<Post>> getPosts() async {
+    // Или так:  final url = Uri(scheme: 'https', host: 'jsonplaceholder.typicode.com', path: 'posts');
     final json = await get('https://jsonplaceholder.typicode.com/posts');
     final listOfData = jsonDecode(json) as List<dynamic>;
     final posts = listOfData
@@ -37,12 +38,14 @@ class ApiClient {
     final url = Uri.parse(uri);
     final request = await client.getUrl(url);
     final response = await request.close();
+    // if(response.statusCode == 200) - можно добавить условия что всё ОК
     final receivedData = await response.transform(utf8.decoder).toList();
     final jsonString = receivedData.join();
     return jsonString;
   }
 
-  Future<Post?> createPost({required String title, required String body}) async{
+  Future<Post?> createPost(
+      {required String title, required String body}) async {
     final url = Uri.parse('https://jsonplaceholder.typicode.com/posts');
     final parameters = <String, dynamic>{
       'title': title,
@@ -55,12 +58,12 @@ class ApiClient {
     final response = await request.close();
     final receivedData = await response.transform(utf8.decoder).toList();
     final jsonString = receivedData.join();
-    final json = jsonDecode(jsonString) as Map <String, dynamic>;
+    final json = jsonDecode(jsonString) as Map<String, dynamic>;
     final post = Post.fromJson(json);
     return post;
   }
 
-  Future<void> fileUpload(File file) async{
+  Future<void> fileUpload(File file) async {
     final url = Uri.parse('https://example.com');
     final request = await client.postUrl(url);
     request.headers.set(HttpHeaders.contentTypeHeader, ContentType.binary);
@@ -70,9 +73,9 @@ class ApiClient {
     await request.addStream(fileStream);
     final httpResponse = await request.close();
 
-    if(httpResponse.statusCode != 200){
+    if (httpResponse.statusCode != 200) {
       throw Exception('Error uploading file');
-    } else{
+    } else {
       return;
     }
   }
