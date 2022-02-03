@@ -14,7 +14,7 @@ class HttpExampleWidgetModel extends ChangeNotifier {
   }
 
   Future<void> createPosts() async {
-    final posts = await apiClient.createPost(title: 'title', body: 'body');
+    await apiClient.createPost(title: 'title', body: 'body');
   }
 }
 

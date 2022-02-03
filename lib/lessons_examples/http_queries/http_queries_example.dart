@@ -19,7 +19,7 @@ class _HttpQueriesExampleState extends State<HttpQueriesExample> {
           model: model,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+            children: const [
               _ReloadButton(),
               _CreateButton(),
               Expanded(
@@ -44,7 +44,7 @@ class _ReloadButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () =>
           HttpExampleModelProvider.read(context)?.model.reloadPosts(),
-      child: Text('обновить посты'),
+      child: const Text('обновить посты'),
     );
   }
 }
@@ -57,7 +57,7 @@ class _CreateButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: () =>
           HttpExampleModelProvider.read(context)?.model.createPosts(),
-      child: Text('создать пост'),
+      child: const Text('создать пост'),
     );
   }
 }
