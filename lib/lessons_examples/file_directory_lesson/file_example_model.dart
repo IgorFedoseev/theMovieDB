@@ -1,7 +1,39 @@
 import 'package:flutter/material.dart';
+import 'dart:io'; //File, socket, HTTP, and other I/O support for non-web applications.
+import 'package:path_provider/path_provider.dart' as pathProvider;
 
 class FileExampleModel extends ChangeNotifier {
-  void readFile() async {}
+  void readFile() async {
+    final directory = await pathProvider.getApplicationDocumentsDirectory();
+    final filePath = directory.path + '/my_file.txt'; // или my_file.txt (без разницы)
+    final file = File(filePath); // получаем сам файл для работы с ним
+    await file.writeAsString('Привет мир!'); // создаём текстовый файл
+    final isExist = await file.exists(); // проверяем наличие файла
+    if (!isExist){
+      await file.create(); // создать новый пустой файл
+    }
+    final result = await file.readAsString(); // читаем файл (если он текстовый)
+    // final result = await file.readAsBytes(); - читаем любой файл в байтах
+    //Image.file(file); - так можем получить файл изображения
+    print(isExist);
+    print(result);
+
+    // Инфо по методам pathProvider (см выше импорт):
+    //pathProvider.getApplicationDocumentsDirectory();
+        // обе, папка для хранения созданных юзером файлов
+    //pathProvider.getApplicationSupportDirectory();
+        // обе, папка для хранения вспомогательных для приложения файлов
+    //pathProvider.getTemporaryDirectory();
+        // обе, папка для хранения кэша
+    //pathProvider.getLibraryDirectory();
+        // iOS, для хранения технических документов необходимых приложению
+    //pathProvider.getDownloadsDirectory();
+        // Android, для загружаемых файлов
+    // pathProvider.getExternalCacheDirectories();
+    // pathProvider.getExternalStorageDirectories();
+    // pathProvider.getExternalStorageDirectory();
+       // все 3 Android, доп кэш или хранилище
+  }
 }
 
 class FileExampleModelProvider extends InheritedNotifier {

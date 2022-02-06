@@ -15,12 +15,14 @@ class _FileExampleWidgetState extends State<FileExampleWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: FileExampleModelProvider(
-          model: _model,
-          child: Column(
-            children: const [
-              _ReadFileButton(),
-            ],
+        child: Center(
+          child: FileExampleModelProvider(
+            model: _model,
+            child: Column(
+              children: const [
+                _ReadFileButton(),
+              ],
+            ),
           ),
         ),
       ),
