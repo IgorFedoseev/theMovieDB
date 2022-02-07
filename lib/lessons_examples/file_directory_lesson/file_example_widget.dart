@@ -37,7 +37,7 @@ class _ReadFileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: FileExampleModelProvider.read(context)!.model.readFile,
-      child: const Text('Read file'),
+      child: const Text('Read the file'),
     );
   }
 }

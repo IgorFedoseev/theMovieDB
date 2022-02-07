@@ -8,15 +8,21 @@ class FileExampleModel extends ChangeNotifier {
     final filePath = directory.path + '/my_file.txt'; // или my_file.txt (без разницы)
     final file = File(filePath); // получаем сам файл для работы с ним
     await file.writeAsString('Привет мир!'); // создаём текстовый файл
+    // final fileSink = file.openWrite(); // создаётся стрим на запись файла
+    // fileSink.close(); // обязательно потом надо закрыть этот стрим
     final isExist = await file.exists(); // проверяем наличие файла
     if (!isExist){
       await file.create(); // создать новый пустой файл
     }
-    final result = await file.readAsString(); // читаем файл (если он текстовый)
+    // final result = await file.readAsString(); читаем файл (если он текстовый)
     // final result = await file.readAsBytes(); - читаем любой файл в байтах
     //Image.file(file); - так можем получить файл изображения
+    // file.rename('Новое имя файла'); - переименовать
+    final result = await file.stat(); // собрать инфо о файле:
+    // result.type - тип
+    // result.size - размер
     print(isExist);
-    print(result);
+    print(result.modeString()); // строковое представления разрешения файла (чтение, запись, выполнение..)
 
     // Инфо по методам pathProvider (см выше импорт):
     //pathProvider.getApplicationDocumentsDirectory();
