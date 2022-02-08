@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io'; //File, socket, HTTP, and other I/O support for non-web applications.
-import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:path_provider/path_provider.dart' as pathprovider;
 
 class FileExampleModel extends ChangeNotifier {
   void readFile() async {
-    final directory = await pathProvider.getApplicationDocumentsDirectory();
+    final directory = await pathprovider.getApplicationDocumentsDirectory();
     final filePath = directory.path + '/my_file.txt'; // или my_file.txt (без разницы)
     final file = File(filePath); // получаем сам файл для работы с ним
     await file.writeAsString('Привет мир!'); // создаём текстовый файл
@@ -18,11 +18,11 @@ class FileExampleModel extends ChangeNotifier {
     // final result = await file.readAsBytes(); - читаем любой файл в байтах
     //Image.file(file); - так можем получить файл изображения
     // file.rename('Новое имя файла'); - переименовать
-    final result = await file.stat(); // собрать инфо о файле:
+    // final result = await file.stat(); // собрать инфо о файле:
     // result.type - тип
     // result.size - размер
-    print(isExist);
-    print(result.modeString()); // строковое представления разрешения файла (чтение, запись, выполнение..)
+    // print(isExist);
+    // print(result.modeString()); // строковое представления разрешения файла (чтение, запись, выполнение..)
 
     // Инфо по методам pathProvider (см выше импорт):
     //pathProvider.getApplicationDocumentsDirectory();

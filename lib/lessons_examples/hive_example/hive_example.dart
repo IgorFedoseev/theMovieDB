@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_example_model.dart';
+import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_adapter_model.dart';
 
 class HiveExampleWidget extends StatefulWidget {
   const HiveExampleWidget({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class HiveExampleWidget extends StatefulWidget {
 }
 
 class _HiveExampleWidgetState extends State<HiveExampleWidget> {
-  final model = HiveExampleWidgetModel();
+  final model = HiveAdapterWidgetModel();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

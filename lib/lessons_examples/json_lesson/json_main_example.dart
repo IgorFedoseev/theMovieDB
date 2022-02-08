@@ -69,20 +69,20 @@ class JsonExampleProvider extends InheritedWidget {
 
 class JsonExampleCoder {
   void encode() {
-    final objects = humans.map((e) => e.toJson()).toList();
-    final jsonString = jsonEncode(objects);
-    print (jsonString);
+    // final objects = humans.map((e) => e.toJson()).toList();
+    // final jsonString = jsonEncode(objects);
+    // print (jsonString);
   }
 
   void decode() {
     try {
       final json = jsonDecode(jsonString) as List<dynamic>;
       // jsonDecode() доступна в библ 'dart:convert'
-      final listOfHumans =
+      // final listOfHumans =
       json.map((e) => Human.fromJson(e as Map<String, dynamic>)).toList();
-      print(listOfHumans[0].name);
+      // print(listOfHumans[0].name);
     } catch (e){
-      print (e);
+      // print (e);
     }
   }
 

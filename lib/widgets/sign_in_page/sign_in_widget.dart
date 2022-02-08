@@ -82,7 +82,7 @@ class _FormWidget extends StatefulWidget {
 class _FormWidgetState extends State<_FormWidget> {
   final _loginTextController = TextEditingController(text: '1');
   final _passwordTextController = TextEditingController(text: '2');
-  String? errorText = null;
+  String? errorText = 'null';
 
   void _auth() {
     final login = _loginTextController.text;
@@ -97,7 +97,7 @@ class _FormWidgetState extends State<_FormWidget> {
   }
 
   void _resetPassword() {
-    print('reset password');
+    // print('reset password');
   }
 
   final textStyle = const TextStyle(
