@@ -1,5 +1,9 @@
-import 'package:hive/hive.dart';
+// import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+// для генерации адаптеров в dev_dependencies нужно добавить два пакета:
+// hive_generator: ^1.1.2
+// build_runner: ^2.1.7
 
 class HiveAdapterWidgetModel {
   HiveAdapterWidgetModel() {
