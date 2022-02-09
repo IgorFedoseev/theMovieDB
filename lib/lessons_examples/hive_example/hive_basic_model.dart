@@ -34,7 +34,7 @@ class HiveExampleWidgetModel{
     // print(boxValues);
     // final boxKeys = box.keys.toList(); // все ключи
     // print(boxKeys);
-
+    await box.compact(); // полезно очищать память с диска от удаленных сущностей
     box.close(); // закрываем box, чтобы выгрузился из памяти
   }
 }
