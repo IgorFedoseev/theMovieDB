@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_generator_for_adapters.dart';
+import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_encripted_box_widget.dart';
 
 // Необходимо по-правильному инициализировать в мэйне
 // import 'package:hive/hive.dart';
@@ -22,7 +22,7 @@ class HiveExampleWidget extends StatefulWidget {
 }
 
 class _HiveExampleWidgetState extends State<HiveExampleWidget> {
-  final model = HiveGeneratorWidgetModel();
+  final model = HiveEncryptedBoxWidget();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
