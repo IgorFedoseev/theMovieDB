@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_encripted_box_widget.dart';
+import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_flutter_listenable.dart';
 
 // Необходимо по-правильному инициализировать в мэйне
 // import 'package:hive/hive.dart';
@@ -13,7 +13,6 @@ import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_encri
 //   runApp(app);
 // }
 
-
 class HiveExampleWidget extends StatefulWidget {
   const HiveExampleWidget({Key? key}) : super(key: key);
 
@@ -22,15 +21,23 @@ class HiveExampleWidget extends StatefulWidget {
 }
 
 class _HiveExampleWidgetState extends State<HiveExampleWidget> {
-  final model = HiveEncryptedBoxWidget();
+  final model = HiveFlutterListenableWidget();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: ElevatedButton(
-            onPressed: model.doSome,
-            child: const Text('push me'),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: model.doSome,
+                child: const Text('Add'),
+              ),
+              ElevatedButton(
+                onPressed: model.setup,
+                child: const Text('Setup'),
+              ),
+            ],
           ),
         ),
       ),
