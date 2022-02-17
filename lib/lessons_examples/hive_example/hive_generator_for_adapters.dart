@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'hive_generator_for_adapters.g.dart';
@@ -25,18 +25,18 @@ class HiveGeneratorWidgetModel {
     final user = User('Victor', 20, 'Petrov', victorsPets);
     //final user = box.get('victor');
     await box.put('victor', user);
-    if (user != null) {
+    //if (user != null) {
       user.age = 18;
       await user.save(); // за счет наследования класса User от HiveObject, можем устанавливать и сохранять новые значения
       //await user.delete(); // или удалить
-    }
+    //}
     //await box.deleteAt(0);
     //final userFromBox = box.getAt(3);
     final firstPet = user.pets?.first;
-    print(box.length);
-    print(box.keys);
+    box.length;
+    box.keys;
     //print(box.values);
-    print(firstPet);
+    firstPet;
     await box.compact();
     await petBox.compact();
     await box.close();

@@ -15,10 +15,10 @@ class HiveAdapterWidgetModel {
       Hive.registerAdapter(UserAdapter()); // регистрируем только 1 раз!
     }
     var box = await Hive.openBox<dynamic>('testBox');
-    final user = User('Victor', 20);
+    //final user = User('Victor', 20);
     // await box.add(user);
     final userFromBox = box.getAt(1);
-    print(userFromBox);
+    userFromBox;
   }
 }
 

@@ -1,4 +1,3 @@
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'hive_flutter_listenable.g.dart';
@@ -17,7 +16,7 @@ class HiveFlutterListenableWidget {
     userBox = Hive.openBox<User>('user_box');
     userBox?.then((box) {
       box.listenable().addListener(() {
-        print(box.values);
+        box.values;
       });
     });
   }

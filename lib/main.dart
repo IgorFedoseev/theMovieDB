@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lazyload_flutter_course/lessons_examples/hive_example/hive_example.dart';
+import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_widget.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
 import 'widgets/movie_details/movie_details_widget.dart';
@@ -29,7 +29,7 @@ class AppMovie extends StatelessWidget {
       routes: {
         '/sign_in': (context) => const SignInWidget(),
         '/main_screen': (context) =>
-            const HiveExampleWidget(), //MainScreenWidget(), JsonMainExample()
+            const MainScreenWidget(), //MainScreenWidget(), JsonMainExample()
         '/main_screen/movie_details': (context) {
           final argument = ModalRoute.of(context)?.settings.arguments;
           if (argument is int) {

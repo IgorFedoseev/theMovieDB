@@ -130,6 +130,5 @@ class DataProviderInherited extends InheritedWidget {
   @override
   bool updateShouldNotify(DataProviderInherited oldWidget) {
     return valueOne != oldWidget.valueOne || valueTwo != oldWidget.valueTwo;
-
   }
 }

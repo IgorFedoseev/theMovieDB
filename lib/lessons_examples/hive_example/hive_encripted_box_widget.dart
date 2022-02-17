@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // импортируем пакет
@@ -14,7 +13,7 @@ class HiveEncryptedBoxWidget {
     const FlutterSecureStorage secureStorage = FlutterSecureStorage();
     // создаём экземпляр
     final containsEncryptionKey = await secureStorage.containsKey(key: 'bfoefibvoes');
-    print(containsEncryptionKey); // всегда true почему-то
+    containsEncryptionKey; // всегда true почему-то
     // проверяем есть ли созданный ключ
     if (containsEncryptionKey) {
       // если нету - создаём
@@ -36,9 +35,9 @@ class HiveEncryptedBoxWidget {
     );
     await encryptedBox.put('string', 'Hive is cool');
     //await secureStorage.deleteAll();
-    print(encryptedBox.values);
+    encryptedBox.values;
     Map<String, String> allValues = await secureStorage.readAll();
-    print(allValues);
+    allValues;
   }
 }
 
