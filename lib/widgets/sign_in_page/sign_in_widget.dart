@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/theme/app_button_style.dart';
+import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart';
 
 class SignInWidget extends StatefulWidget {
   const SignInWidget({Key? key}) : super(key: key);
@@ -69,83 +70,45 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-//to get started
-//to have it resent.
-
-class _FormWidget extends StatefulWidget {
+class _FormWidget extends StatelessWidget {
   const _FormWidget({Key? key}) : super(key: key);
 
   @override
-  _FormWidgetState createState() => _FormWidgetState();
-}
-
-class _FormWidgetState extends State<_FormWidget> {
-  final _loginTextController = TextEditingController(text: '1');
-  final _passwordTextController = TextEditingController(text: '2');
-  String? errorText;
-
-  void _auth() {
-    final login = _loginTextController.text;
-    final password = _passwordTextController.text;
-    if (login.isNotEmpty && password.isNotEmpty) {
-      errorText = null;
-      Navigator.of(context).pushReplacementNamed('/main_screen');
-    } else {
-      errorText = 'Неверный логин или пароль';
-    }
-    setState(() {});
-  }
-
-  void _resetPassword() {
-    // print('reset password');
-  }
-
-  final textStyle = const TextStyle(
-    fontSize: 14.0,
-    fontWeight: FontWeight.w500,
-    color: Color(0xFF212529),
-  );
-
-  final textFieldStyle = const InputDecoration(
-    border: OutlineInputBorder(),
-    isCollapsed: true,
-    contentPadding: EdgeInsets.symmetric(
-      horizontal: 5.0,
-      vertical: 10.0,
-    ),
-  );
-
-  //final actionColor = Color(0xFF01B4E4);
-
-  @override
   Widget build(BuildContext context) {
+    final model = SignInProvider.read(context)?.model;
+    const textStyle = TextStyle(
+      fontSize: 14.0,
+      fontWeight: FontWeight.w500,
+      color: Color(0xFF212529),
+    );
+    //final actionColor = Color(0xFF01B4E4);
+    const textFieldStyle = InputDecoration(
+      border: OutlineInputBorder(),
+      isCollapsed: true,
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 5.0,
+        vertical: 10.0,
+      ),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (errorText != null) ...[
-          Text(
-            errorText!,
-            style: const TextStyle(
-              color: Colors.red,
-            ),
-          ),
-          const SizedBox(height: 20.0),
-        ],
-        Text(
+        const _ErrorMessageWidget(),
+        const Text(
           'Username',
           style: textStyle,
         ),
         TextField(
-          controller: _loginTextController,
+          controller: model?.loginTextController,
           decoration: textFieldStyle,
         ),
         const SizedBox(height: 20.0),
-        Text(
+        const Text(
           'Password',
           style: textStyle,
         ),
         TextField(
-          controller: _passwordTextController,
+          controller: model?.passwordTextController,
           decoration: textFieldStyle,
           obscureText: true,
         ),
@@ -153,7 +116,7 @@ class _FormWidgetState extends State<_FormWidget> {
         Row(
           children: [
             ElevatedButton(
-              onPressed: _auth,
+              onPressed: () => model?.auth(context),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(
                   const EdgeInsets.symmetric(
@@ -172,13 +135,33 @@ class _FormWidgetState extends State<_FormWidget> {
             ),
             const SizedBox(width: 28),
             TextButton(
-              onPressed: _resetPassword,
+              onPressed: (){},
               style: AppButtonStyle.linkButton,
               child: const Text('Reset password'),
             )
           ],
         ),
       ],
+    );
+  }
+}
+
+class _ErrorMessageWidget extends StatelessWidget {
+  const _ErrorMessageWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final errorMessage = SignInProvider.watch(context)?.model.errorMessage;
+    if (errorMessage == null) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Text(
+        errorMessage,
+        style: const TextStyle(
+          fontSize: 18.0,
+          color: Colors.red,
+        ),
+      ),
     );
   }
 }
