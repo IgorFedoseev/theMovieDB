@@ -115,33 +115,47 @@ class _FormWidget extends StatelessWidget {
         const SizedBox(height: 20.0),
         Row(
           children: [
-            ElevatedButton(
-              onPressed: () => model?.auth(context),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(
-                  const EdgeInsets.symmetric(
-                    vertical: 6.0,
-                    horizontal: 20.0,
-                  ),
-                ),
-                textStyle: MaterialStateProperty.all(
-                  const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              child: const Text('Sign in'),
-            ),
+            const _AuthButtonWidget(),
             const SizedBox(width: 28),
             TextButton(
-              onPressed: (){},
+              onPressed: () {},
               style: AppButtonStyle.linkButton,
               child: const Text('Reset password'),
             )
           ],
         ),
       ],
+    );
+  }
+}
+
+class _AuthButtonWidget extends StatelessWidget {
+  const _AuthButtonWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = SignInProvider.watch(context)?.model;
+    final onPressed =
+        model?.canStartAuth == true ? () => model?.auth(context) : null;
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.symmetric(
+            vertical: 6.0,
+            horizontal: 20.0,
+          ),
+        ),
+        textStyle: MaterialStateProperty.all(
+          const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+      child: const Text('Sign in'),
     );
   }
 }

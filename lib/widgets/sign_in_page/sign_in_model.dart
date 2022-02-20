@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class SignInModel extends ChangeNotifier{
   final loginTextController = TextEditingController();
   final passwordTextController = TextEditingController();
+
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
+
+  bool _isAuthProgress = false;
+  bool get canStartAuth => _isAuthProgress;
 
   Future<void> auth(BuildContext context) async{
 
