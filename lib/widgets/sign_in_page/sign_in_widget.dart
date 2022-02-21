@@ -138,7 +138,14 @@ class _AuthButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = SignInProvider.watch(context)?.model;
     final onPressed =
-        model?.canStartAuth == true ? () => model?.auth(context) : null;
+        model?.canStartAuth == false ? () => model?.auth(context) : null;
+    final child = model?.canStartAuth == true
+        ? const SizedBox(
+            child: CircularProgressIndicator(strokeWidth: 2),
+            height: 15,
+            width: 15,
+          )
+        : const Text('Sign in');
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(
@@ -155,7 +162,7 @@ class _AuthButtonWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: const Text('Sign in'),
+      child: child,
     );
   }
 }
