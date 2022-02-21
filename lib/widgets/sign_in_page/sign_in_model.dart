@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
 import 'package:lazyload_flutter_course/domain/data_providers/session_data_provider.dart';
+import 'package:lazyload_flutter_course/ui/navigation/main_navigation.dart';
 
 class SignInModel extends ChangeNotifier {
   final _apiClient = ApiClient();
@@ -46,7 +47,7 @@ class SignInModel extends ChangeNotifier {
       return;
     }
     await _sessionDataProvider.setSessionId(sessionId);
-    Navigator.of(context).pushNamed('/main_screen');
+    Navigator.of(context).pushReplacementNamed(MainNavigationRoutsNames.mainScreen);
   }
 }
 

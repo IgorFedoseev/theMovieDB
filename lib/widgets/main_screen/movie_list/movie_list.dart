@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/app_images.dart';
+import 'package:lazyload_flutter_course/ui/navigation/main_navigation.dart';
 
 class Movie {
   final int id;
@@ -134,7 +135,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   void _onMovieTap(int index) {
     final id = _movies[index].id;
     Navigator.of(context).pushNamed(
-      '/main_screen/movie_details',
+      MainNavigationRoutsNames.movieDetails,
       arguments: id,
     );
   }

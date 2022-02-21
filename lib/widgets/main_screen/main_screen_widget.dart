@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/domain/data_providers/session_data_provider.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/movie_list/movie_list.dart';
-
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -10,11 +10,11 @@ class MainScreenWidget extends StatefulWidget {
 }
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
-  int _selectedTab = 0;
+  int _selectedTab = 1;
 
   void onSelectTub(int index) {
     setState(() {
-      if(_selectedTab == index) return;
+      if (_selectedTab == index) return;
       _selectedTab = index;
     });
   }
@@ -24,6 +24,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('TMDB'),
+        actions: [
+          IconButton(
+            onPressed: () => SessionDataProvider().setSessionId(null),
+            icon: const Icon(Icons.logout),
+          )
+        ],
       ),
       body: IndexedStack(
         index: _selectedTab,

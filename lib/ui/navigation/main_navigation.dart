@@ -5,9 +5,9 @@ import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart'
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
 abstract class MainNavigationRoutsNames {
-  static const auth = '/sign_in';
-  static const mainScreen = '/main_screen';
-  static const movieDetails = '/main_screen/movie_details';
+  static const auth = 'sign_in';
+  static const mainScreen = '/';
+  static const movieDetails = '/movie_details';
 }
 
 class MainNavigation {
@@ -16,10 +16,10 @@ class MainNavigation {
       : MainNavigationRoutsNames.auth;
 
   final routes = <String, Widget Function(BuildContext)>{
-    '/sign_in': (context) =>
+    MainNavigationRoutsNames.auth: (context) =>
         SignInProvider(model: SignInModel(), child: const SignInWidget()),
-    '/main_screen': (context) => const MainScreenWidget(),
-    '/main_screen/movie_details': (context) {
+    MainNavigationRoutsNames.mainScreen: (context) => const MainScreenWidget(),
+    MainNavigationRoutsNames.movieDetails: (context) {
       final argument = ModalRoute.of(context)?.settings.arguments;
       if (argument is int) {
         return MovieDetailsWidget(movieID: argument);
@@ -28,4 +28,17 @@ class MainNavigation {
       }
     },
   };
+  Route<Object> onGenerateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case MainNavigationRoutsNames.movieDetails:
+        final arguments = settings.arguments;
+        final movieId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (context) => MovieDetailsWidget(movieID: movieId),
+        );
+      default:
+        const widget = Text('Ошибка навигации!');
+        return MaterialPageRoute(builder: (context) => widget);
+    }
+  }
 }
