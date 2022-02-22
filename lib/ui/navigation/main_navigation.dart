@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
+import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_model.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_widget.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_widget.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart';
@@ -17,8 +19,9 @@ class MainNavigation {
 
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRoutsNames.auth: (context) =>
-        SignInProvider(model: SignInModel(), child: const SignInWidget()),
-    MainNavigationRoutsNames.mainScreen: (context) => const MainScreenWidget(),
+        NotifierProvider(model: SignInModel(), child: const SignInWidget()),
+    MainNavigationRoutsNames.mainScreen: (context) => NotifierProvider(
+        model: MainScreenModel(), child: const MainScreenWidget()),
     MainNavigationRoutsNames.movieDetails: (context) {
       final argument = ModalRoute.of(context)?.settings.arguments;
       if (argument is int) {

@@ -28,45 +28,47 @@ class SignInModel extends ChangeNotifier {
     _isAuthProgress = true;
     notifyListeners();
     String? sessionId;
-    try{
-    sessionId = await _apiClient.auth(
-      userName: login,
-      password: password,
-    );
+    try {
+      sessionId = await _apiClient.auth(
+        userName: login,
+        password: password,
+      );
     } catch (e) {
       _errorMessage = 'Неверные данные аккаунта';
     }
     _isAuthProgress = false;
-    if(_errorMessage != null){
+    if (_errorMessage != null) {
       notifyListeners();
       return;
     }
-    if(sessionId == null){
+    if (sessionId == null) {
       _errorMessage = 'Неизвестная ошибка';
       notifyListeners();
       return;
     }
     await _sessionDataProvider.setSessionId(sessionId);
-    Navigator.of(context).pushReplacementNamed(MainNavigationRoutsNames.mainScreen);
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRoutsNames.mainScreen);
   }
 }
 
-class SignInProvider extends InheritedNotifier {
-  final SignInModel model;
-  const SignInProvider({
-    Key? key,
-    required Widget child,
-    required this.model,
-  }) : super(key: key, notifier: model, child: child);
+// class SignInProvider extends InheritedNotifier {
+//   final SignInModel model;
+//   const SignInProvider({
+//     Key? key,
+//     required Widget child,
+//     required this.model,
+//   }) : super(key: key, notifier: model, child: child);
+//
+//   static SignInProvider? watch(BuildContext context) {
+//     return context.dependOnInheritedWidgetOfExactType<SignInProvider>();
+//   }
+//
+//   static SignInProvider? read(BuildContext context) {
+//     final widget = context
+//         .getElementForInheritedWidgetOfExactType<SignInProvider>()
+//         ?.widget;
+//     return widget is SignInProvider ? widget : null;
+//   }
+// }
 
-  static SignInProvider? watch(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SignInProvider>();
-  }
-
-  static SignInProvider? read(BuildContext context) {
-    final widget = context
-        .getElementForInheritedWidgetOfExactType<SignInProvider>()
-        ?.widget;
-    return widget is SignInProvider ? widget : null;
-  }
-}

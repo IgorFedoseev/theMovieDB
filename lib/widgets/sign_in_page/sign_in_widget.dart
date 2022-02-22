@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
 import 'package:lazyload_flutter_course/theme/app_button_style.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart';
 
@@ -75,7 +76,7 @@ class _FormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SignInProvider.read(context)?.model;
+    final model = NotifierProvider.read<SignInModel>(context);
     const textStyle = TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
@@ -136,7 +137,7 @@ class _AuthButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SignInProvider.watch(context)?.model;
+    final model = NotifierProvider.watch<SignInModel>(context);
     final onPressed =
         model?.canStartAuth == false ? () => model?.auth(context) : null;
     final child = model?.canStartAuth == true
@@ -172,7 +173,7 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorMessage = SignInProvider.watch(context)?.model.errorMessage;
+    final errorMessage = NotifierProvider.watch<SignInModel>(context)?.errorMessage;
     if (errorMessage == null) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
