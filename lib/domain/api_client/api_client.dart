@@ -113,7 +113,7 @@ class ApiClient {
       final token = jsonMap['request_token'] as String;
       return token;
     }
-    final Map<String, dynamic> BodyParameters = {
+    final Map<String, dynamic> bodyParameters = {
       'username': userName,
       'password': password,
       'request_token': requestToken
@@ -122,7 +122,7 @@ class ApiClient {
       '/authentication/token/validate_with_login',
       parser,
       {'api_key': _apiKey},
-      BodyParameters,
+      bodyParameters,
     );
     return result;
   }
@@ -139,6 +139,24 @@ class ApiClient {
       parser,
       {'api_key': _apiKey},
       parameters,
+    );
+    return result;
+  }
+
+  Future<String> popularMovies(int page, String region) async {
+    String parser(dynamic json) {
+      // final jsonMap = json as Map<String, dynamic>;
+      // final token = jsonMap['request_token'] as String;
+      // return token;
+      return json;
+    }
+    final result = _get(
+      '/movie/popular',
+      parser,
+      {'api_key': _apiKey,
+        'page': page.toString(),
+      'language': region,
+      },
     );
     return result;
   }
