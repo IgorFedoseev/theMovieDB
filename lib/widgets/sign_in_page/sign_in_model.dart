@@ -33,8 +33,21 @@ class SignInModel extends ChangeNotifier {
         userName: login,
         password: password,
       );
+    } on ApiClientException catch (e) {
+      switch (e.type) {
+        case ApiClientExceptionType.network:
+          _errorMessage =
+              'Сервер недоступен, проверьте соединение c интернетом';
+          break;
+        case ApiClientExceptionType.auth:
+          _errorMessage = 'Неверные данные аккаунта';
+          break;
+        case ApiClientExceptionType.other:
+          _errorMessage = 'Что-то пошло не так, повторите попытку';
+          break;
+      }
     } catch (e) {
-      _errorMessage = 'Неверные данные аккаунта';
+      _errorMessage = 'Что-то пошло не так, повторите попытку';
     }
     _isAuthProgress = false;
     if (_errorMessage != null) {
@@ -71,4 +84,3 @@ class SignInModel extends ChangeNotifier {
 //     return widget is SignInProvider ? widget : null;
 //   }
 // }
-
