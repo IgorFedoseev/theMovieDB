@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:lazyload_flutter_course/domain/entity/popular_movie_response.dart';
+
 enum ApiClientExceptionType {
   network, // ошибка сети
   auth, // ошибка авторизации
@@ -143,12 +145,11 @@ class ApiClient {
     return result;
   }
 
-  Future<String> popularMovies(int page, String region) async {
-    String parser(dynamic json) {
-      // final jsonMap = json as Map<String, dynamic>;
-      // final token = jsonMap['request_token'] as String;
-      // return token;
-      return json;
+  Future<PopularMovieResponse> popularMovies(int page, String region) async {
+    PopularMovieResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = PopularMovieResponse.fromJson(jsonMap);
+      return response;
     }
     final result = _get(
       '/movie/popular',

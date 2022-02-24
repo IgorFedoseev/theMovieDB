@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/domain/data_providers/session_data_provider.dart';
+import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/movie_list/movie_list.dart';
+import 'package:lazyload_flutter_course/widgets/main_screen/movie_list/movie_list_model.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -11,12 +13,19 @@ class MainScreenWidget extends StatefulWidget {
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 1;
+  final movieListModel = MovieListModel();
 
   void onSelectTub(int index) {
     setState(() {
       if (_selectedTab == index) return;
       _selectedTab = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    movieListModel.loadMovies();
   }
 
   @override
@@ -34,10 +43,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       ),
       body: IndexedStack(
         index: _selectedTab,
-        children: const [
-          Text('Новости'),
-          MovieListWidget(),
-          Text('Сериалы'),
+        children: [
+          const Text('Новости'),
+          NotifierProvider(
+            child: const MovieListWidget(),
+            model: movieListModel,
+          ),
+          const Text('Сериалы'),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
