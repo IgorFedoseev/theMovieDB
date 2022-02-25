@@ -21,6 +21,8 @@ class ApiClient {
   static const _imageUrl = 'https://image.tmdb.org/t/p/w500';
   static const _apiKey = '5ed3e0cc6ddcfd2b94b5515b08fc9119';
 
+  static String imageUrl(String path) => _imageUrl + path;
+
   Future<String> auth({
     required String userName,
     required String password,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
 import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/movie_list/movie_list_model.dart';
 
@@ -8,7 +9,7 @@ class MovieListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watch<MovieListModel>(context);
-    if(model == null) return const SizedBox.shrink();
+    if (model == null) return const SizedBox.shrink();
     return Stack(
       children: [
         ListView.builder(
@@ -17,7 +18,9 @@ class MovieListWidget extends StatelessWidget {
           itemCount: model.movies.length,
           itemExtent: 163, // высота одной карточки списка
           itemBuilder: (BuildContext context, int index) {
+            model.showedMovieAtIndex(index);
             final movie = model.movies[index];
+            final posterPath = movie.posterPath;
             return Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
@@ -47,9 +50,13 @@ class MovieListWidget extends StatelessWidget {
                         Clip.hardEdge, // чтобы картинка скруглялась тоже
                     child: Row(
                       children: [
-                        // Image(
-                        //   image: movie.image,
-                        // ),
+                        posterPath != null
+                            ? Image.network(
+                                ApiClient.imageUrl(posterPath),
+                                width: 100,
+                                fit: BoxFit.cover,
+                              )
+                            : const SizedBox.shrink(),
                         const SizedBox(width: 12.0),
                         Expanded(
                           child: Column(
@@ -66,7 +73,7 @@ class MovieListWidget extends StatelessWidget {
                               ),
                               const SizedBox(height: 5.0),
                               Text(
-                                movie.releaseDate?.toString() ?? 'unknown',
+                                model.stringFromDate(movie.releaseDate),
                                 style: const TextStyle(
                                   color: Colors.black54,
                                 ),
