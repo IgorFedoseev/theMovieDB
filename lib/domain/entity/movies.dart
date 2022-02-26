@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lazyload_flutter_course/domain/entity/movie_data_parser.dart';
 
 part 'movies.g.dart';
 
@@ -8,7 +9,7 @@ class Movie {
   final String? posterPath;
   final bool adult;
   final String overview;
-  @JsonKey(fromJson: _parseDateFromString)
+  @JsonKey(fromJson: parseDateFromString)
   final DateTime? releaseDate;
   final List<int> genreIds;
   final int id;
@@ -41,9 +42,4 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieToJson(this);
-
-  static DateTime? _parseDateFromString(String? rawDate) {
-    if (rawDate == null || rawDate.trim().isEmpty) return null;
-    return DateTime.tryParse(rawDate);
-  }
 }
