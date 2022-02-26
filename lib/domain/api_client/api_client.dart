@@ -99,6 +99,7 @@ class ApiClient {
       final token = jsonMap['request_token'] as String;
       return token;
     }
+
     final result = _get(
       '/authentication/token/new',
       parser,
@@ -137,6 +138,7 @@ class ApiClient {
       final sessionId = jsonMap['session_id'] as String;
       return sessionId;
     }
+
     final Map<String, dynamic> parameters = {'request_token': requestToken};
     final result = _post(
       '/authentication/session/new',
@@ -153,12 +155,38 @@ class ApiClient {
       final response = PopularMovieResponse.fromJson(jsonMap);
       return response;
     }
+
     final result = _get(
       '/movie/popular',
       parser,
-      {'api_key': _apiKey,
+      {
+        'api_key': _apiKey,
         'page': page.toString(),
-      'language': region,
+        'language': region,
+      },
+    );
+    return result;
+  }
+
+  Future<PopularMovieResponse> searchMovies(
+    int page,
+    String region,
+    String query,
+  ) async {
+    PopularMovieResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = PopularMovieResponse.fromJson(jsonMap);
+      return response;
+    }
+    final result = _get(
+      '/search/movie',
+      parser,
+      {
+        'api_key': _apiKey,
+        'page': page.toString(),
+        'language': region,
+        'query': query,
+        'include_adult': true.toString(),
       },
     );
     return result;
