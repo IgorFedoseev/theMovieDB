@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:lazyload_flutter_course/domain/entity/movie_details.dart';
 import 'package:lazyload_flutter_course/domain/entity/popular_movie_response.dart';
 
 enum ApiClientExceptionType {
@@ -187,6 +188,26 @@ class ApiClient {
         'language': region,
         'query': query,
         'include_adult': true.toString(),
+      },
+    );
+    return result;
+  }
+
+  Future<MovieDetails> movieDetails(
+      int movieId,
+      String region,
+      ) async {
+    MovieDetails parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = MovieDetails.fromJson(jsonMap);
+      return response;
+    }
+    final result = _get(
+      '/movie/$movieId',
+      parser,
+      {
+        'api_key': _apiKey,
+        'language': region,
       },
     );
     return result;

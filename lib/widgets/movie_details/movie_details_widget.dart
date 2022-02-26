@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'movie_details_cast_screen.dart';
-import 'movie_details_main.dart';
+import 'movie_details_main_info.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({Key? key, required this.movieID}) : super(key: key);
