@@ -45,7 +45,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         index: _selectedTab,
         children: [
           const Text('Новости'),
-          NotifierProvider(
+          InheritedNotifierProvider(
             child: const MovieListWidget(),
             model: movieListModel,
           ),

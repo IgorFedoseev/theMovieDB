@@ -76,7 +76,7 @@ class _FormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<SignInModel>(context);
+    final model = InheritedNotifierProvider.read<SignInModel>(context);
     const textStyle = TextStyle(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
@@ -137,7 +137,7 @@ class _AuthButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<SignInModel>(context);
+    final model = InheritedNotifierProvider.watch<SignInModel>(context);
     final onPressed =
         model?.canStartAuth == false ? () => model?.auth(context) : null;
     final child = model?.canStartAuth == true
@@ -173,7 +173,7 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorMessage = NotifierProvider.watch<SignInModel>(context)?.errorMessage;
+    final errorMessage = InheritedNotifierProvider.watch<SignInModel>(context)?.errorMessage;
     if (errorMessage == null) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),

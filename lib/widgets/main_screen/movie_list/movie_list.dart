@@ -8,7 +8,7 @@ class MovieListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<MovieListModel>(context);
+    final model = InheritedNotifierProvider.watch<MovieListModel>(context);
     if (model == null) return const SizedBox.shrink();
     return Stack(
       children: [

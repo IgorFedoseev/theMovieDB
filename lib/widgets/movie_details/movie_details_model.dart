@@ -11,6 +11,8 @@ class MovieDetailsModel extends ChangeNotifier{
   late final String _locale;
   late DateFormat _dateFormat;
 
+  MovieDetails? get movieDetails => _movieDetails;
+
   MovieDetailsModel(this.movieId);
 
   Future<void> setupLocale(BuildContext context) async {

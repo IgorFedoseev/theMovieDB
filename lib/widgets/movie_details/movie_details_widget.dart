@@ -4,9 +4,7 @@ import 'movie_details_cast_screen.dart';
 import 'movie_details_main_info.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
-  const MovieDetailsWidget({Key? key, required this.movieID}) : super(key: key);
-
-  final int movieID;
+  const MovieDetailsWidget({Key? key}) : super(key: key);
 
   @override
   _MovieDetailsWidgetState createState() => _MovieDetailsWidgetState();

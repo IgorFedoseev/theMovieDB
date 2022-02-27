@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_model.dart';
 import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_widget.dart';
+import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_widget.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
@@ -19,17 +20,9 @@ class MainNavigation {
 
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRoutsNames.auth: (context) =>
-        NotifierProvider(model: SignInModel(), child: const SignInWidget()),
-    MainNavigationRoutsNames.mainScreen: (context) => NotifierProvider(
+        InheritedNotifierProvider(model: SignInModel(), child: const SignInWidget()),
+    MainNavigationRoutsNames.mainScreen: (context) => InheritedNotifierProvider(
         model: MainScreenModel(), child: const MainScreenWidget()),
-    MainNavigationRoutsNames.movieDetails: (context) {
-      final argument = ModalRoute.of(context)?.settings.arguments;
-      if (argument is int) {
-        return MovieDetailsWidget(movieID: argument);
-      } else {
-        return const MovieDetailsWidget(movieID: 0);
-      }
-    },
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -37,7 +30,10 @@ class MainNavigation {
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-          builder: (context) => MovieDetailsWidget(movieID: movieId),
+          builder: (context) => InheritedNotifierProvider(
+            model: MovieDetailsModel(movieId),
+            child: const MovieDetailsWidget(),
+          ),
         );
       default:
         const widget = Text('Ошибка навигации!');
