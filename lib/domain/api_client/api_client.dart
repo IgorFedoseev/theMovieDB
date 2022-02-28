@@ -206,6 +206,7 @@ class ApiClient {
       '/movie/$movieId',
       parser,
       {
+        'append_to_response': 'credits',
         'api_key': _apiKey,
         'language': region,
       },
