@@ -1,7 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/app_images.dart';
+import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
 import 'package:lazyload_flutter_course/lessons_examples/draw_radial_percent_widget/radial_percent_widget.dart';
+import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
+import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
 
 class MovieDetailsMainWidget extends StatelessWidget {
   const MovieDetailsMainWidget({Key? key}) : super(key: key);
@@ -64,21 +66,25 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watch<MovieDetailsModel>(context);
+    final backdropPath = model?.movieDetails?.backdropPath;
+    final posterPath = model?.movieDetails?.posterPath;
+    final backgroundImage = backdropPath != null
+        ? Image.network(ApiClient.imageUrl(backdropPath))
+        : const Image(image: AppImages.eternalMainTop);
+    final posterImage = posterPath != null ? Image.network(ApiClient.imageUrl(posterPath)) : const Image(image: AppImages.eternalSecondaryTop);
     return Center(
       child: Container(
         child: Stack(
-          children: const [
+          children: [
             Padding(
-              padding: EdgeInsets.only(left: 6.0, top: 18.0, bottom: 18.0),
-              child: Image(image: AppImages.eternalSecondaryTop),
+              padding: const EdgeInsets.only(left: 6.0, top: 18.0, bottom: 18.0),
+              child: posterImage,
             ),
           ],
         ),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AppImages.eternalMainTop,
-            fit: BoxFit.cover,
-          ),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: backgroundImage.image),
         ),
         constraints: const BoxConstraints.expand(
           width: 390,
@@ -139,8 +145,8 @@ class _RatingWidget extends StatelessWidget {
                   lineWidth: 3.0,
                 ),
               ),
-               SizedBox(width: 14),
-               Text('Рейтинг'),
+              SizedBox(width: 14),
+              Text('Рейтинг'),
             ],
           ),
         ),
