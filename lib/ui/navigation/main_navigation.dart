@@ -20,9 +20,9 @@ class MainNavigation {
 
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRoutsNames.auth: (context) =>
-        InheritedNotifierProvider(model: SignInModel(), child: const SignInWidget()),
-    MainNavigationRoutsNames.mainScreen: (context) => InheritedNotifierProvider(
-        model: MainScreenModel(), child: const MainScreenWidget()),
+        NotifierProvider(create: () => SignInModel(), child: const SignInWidget()),
+    MainNavigationRoutsNames.mainScreen: (context) => NotifierProvider(
+        create: () => MainScreenModel(), child: const MainScreenWidget()),
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -30,8 +30,8 @@ class MainNavigation {
         final arguments = settings.arguments;
         final movieId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-          builder: (context) => InheritedNotifierProvider(
-            model: MovieDetailsModel(movieId),
+          builder: (context) => NotifierProvider(
+            create: () => MovieDetailsModel(movieId),
             child: const MovieDetailsWidget(),
           ),
         );
