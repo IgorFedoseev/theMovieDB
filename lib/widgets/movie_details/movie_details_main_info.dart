@@ -4,6 +4,7 @@ import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
 import 'package:lazyload_flutter_course/domain/entity/movie_details_credits.dart';
 import 'package:lazyload_flutter_course/lessons_examples/draw_radial_percent_widget/radial_percent_widget.dart';
 import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
+import 'package:lazyload_flutter_course/ui/navigation/main_navigation.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
 
 class MovieDetailsMainWidget extends StatelessWidget {
@@ -140,6 +141,11 @@ class _RatingWidget extends StatelessWidget {
     final model = NotifierProvider.watch<MovieDetailsModel>(context);
     final voteAverage = model?.movieDetails?.voteAverage ?? 0;
     final voteAveragePercent = voteAverage / 10;
+    final videoResults = model?.movieDetails?.videos.results;
+    final trailerVideos = videoResults
+        ?.where((video) => video.type == 'Trailer' && video.site == 'YouTube');
+    final trailerKey =
+        trailerVideos?.isNotEmpty == true ? trailerVideos?.first.key : null;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -168,15 +174,20 @@ class _RatingWidget extends StatelessWidget {
           width: 1.0,
           height: 16.0,
         ),
-        TextButton(
-            onPressed: () {},
-            child: Row(
-              children: const [
-                Icon(Icons.play_arrow),
-                SizedBox(width: 6.0),
-                Text('Смотреть трейлер'),
-              ],
-            )),
+        trailerKey != null
+            ? TextButton(
+                onPressed: () => Navigator.of(context).pushNamed(
+                      MainNavigationRoutsNames.movieTrailer,
+                      arguments: trailerKey,
+                    ),
+                child: Row(
+                  children: const [
+                    Icon(Icons.play_arrow),
+                    SizedBox(width: 6.0),
+                    Text('Смотреть трейлер'),
+                  ],
+                ))
+            : const SizedBox.shrink(),
       ],
     );
   }
@@ -308,4 +319,3 @@ class _StaffRowWidgetItem extends StatelessWidget {
     );
   }
 }
-

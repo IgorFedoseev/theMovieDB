@@ -4,6 +4,7 @@ import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_model.da
 import 'package:lazyload_flutter_course/widgets/main_screen/main_screen_widget.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_widget.dart';
+import 'package:lazyload_flutter_course/widgets/movie_trailer/movie_trailer_widget.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_model.dart';
 import 'package:lazyload_flutter_course/widgets/sign_in_page/sign_in_widget.dart';
 
@@ -11,6 +12,7 @@ abstract class MainNavigationRoutsNames {
   static const auth = 'sign_in';
   static const mainScreen = '/';
   static const movieDetails = '/movie_details';
+  static const movieTrailer = '/movie_details/trailer';
 }
 
 class MainNavigation {
@@ -35,6 +37,12 @@ class MainNavigation {
             child: const MovieDetailsWidget(),
           ),
         );
+      case MainNavigationRoutsNames.movieTrailer:
+        final arguments = settings.arguments;
+        final youtubeKey = arguments is String ? arguments : '';
+        return MaterialPageRoute(
+          builder: (context) => MovieTrailerWidget(youtubeKey: youtubeKey),
+          );
       default:
         const widget = Text('Ошибка навигации!');
         return MaterialPageRoute(builder: (context) => widget);

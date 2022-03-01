@@ -9,7 +9,8 @@ part of 'movie_details_videos.dart';
 MovieDetailsVideo _$MovieDetailsVideoFromJson(Map<String, dynamic> json) =>
     MovieDetailsVideo(
       results: (json['results'] as List<dynamic>)
-          .map((e) => Result.fromJson(e as Map<String, dynamic>))
+          .map((e) =>
+              MovieDetailsVideoResult.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -18,7 +19,9 @@ Map<String, dynamic> _$MovieDetailsVideoToJson(MovieDetailsVideo instance) =>
       'results': instance.results.map((e) => e.toJson()).toList(),
     };
 
-Result _$ResultFromJson(Map<String, dynamic> json) => Result(
+MovieDetailsVideoResult _$MovieDetailsVideoResultFromJson(
+        Map<String, dynamic> json) =>
+    MovieDetailsVideoResult(
       iso6391: json['iso_639_1'] as String,
       iso31661: json['iso_3166_1'] as String,
       name: json['name'] as String,
@@ -31,7 +34,9 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       id: json['id'] as String,
     );
 
-Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
+Map<String, dynamic> _$MovieDetailsVideoResultToJson(
+        MovieDetailsVideoResult instance) =>
+    <String, dynamic>{
       'iso_639_1': instance.iso6391,
       'iso_3166_1': instance.iso31661,
       'name': instance.name,

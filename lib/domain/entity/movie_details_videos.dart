@@ -4,7 +4,7 @@ part 'movie_details_videos.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class MovieDetailsVideo {
-  final List<Result> results;
+  final List<MovieDetailsVideoResult> results;
 
   MovieDetailsVideo({
     required this.results,
@@ -15,7 +15,7 @@ class MovieDetailsVideo {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-  class Result {
+  class MovieDetailsVideoResult {
   @JsonKey(name: 'iso_639_1')
   final String iso6391;
   @JsonKey(name: 'iso_3166_1')
@@ -28,7 +28,7 @@ class MovieDetailsVideo {
   final bool official;
   final String publishedAt;
   final String id;
-  Result({
+  MovieDetailsVideoResult({
   required this.iso6391,
   required this.iso31661,
   required this.name,
@@ -41,6 +41,6 @@ class MovieDetailsVideo {
   required this.id,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  factory MovieDetailsVideoResult.fromJson(Map<String, dynamic> json) => _$MovieDetailsVideoResultFromJson(json);
+  Map<String, dynamic> toJson() => _$MovieDetailsVideoResultToJson(this);
   }
