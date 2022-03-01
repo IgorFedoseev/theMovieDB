@@ -109,6 +109,25 @@ class ApiClient {
     return result;
   }
 
+  Future<int> getAccountInfo(
+      String sessionId,
+      ) async {
+    int parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final result = jsonMap['id'] as int;
+      return result;
+    }
+    final result = _get(
+      '/account',
+      parser,
+      {
+        'session_id': sessionId,
+        'api_key': _apiKey,
+      },
+    );
+    return result;
+  }
+
   Future<String> _validateUser({
     required String userName,
     required String password,
@@ -209,6 +228,26 @@ class ApiClient {
         'append_to_response': 'videos,credits',
         'api_key': _apiKey,
         'language': region,
+      },
+    );
+    return result;
+  }
+
+  Future<bool> isFavorite(
+      int movieId,
+      String sessionId,
+      ) async {
+    bool parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final result = jsonMap['favorite'] as bool;
+      return result;
+    }
+    final result = _get(
+      '/movie/$movieId/account_states',
+      parser,
+      {
+        'api_key': _apiKey,
+        'session_id': sessionId,
       },
     );
     return result;

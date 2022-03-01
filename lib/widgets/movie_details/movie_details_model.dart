@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
+import 'package:lazyload_flutter_course/domain/data_providers/session_data_provider.dart';
 import 'package:lazyload_flutter_course/domain/entity/movie_details.dart';
 
 class MovieDetailsModel extends ChangeNotifier{
   final _apiClient = ApiClient();
+  final _sessionDataProvider = SessionDataProvider();
 
   final int movieId;
   MovieDetails? _movieDetails;
+  bool _isFavorite = false;
   String _locale = '';
   late DateFormat _dateFormat;
 
   MovieDetails? get movieDetails => _movieDetails;
+  bool get isFavorite => _isFavorite;
 
   MovieDetailsModel(this.movieId);
 
@@ -28,6 +32,10 @@ class MovieDetailsModel extends ChangeNotifier{
 
   Future<void> loadDetails() async{
     _movieDetails = await _apiClient.movieDetails(movieId, _locale);
+    final sessionId = await _sessionDataProvider.getSessionId();
+    if(sessionId != null){
+      _isFavorite = await _apiClient.isFavorite(movieId, sessionId);
+    }
     notifyListeners();
   }
 }

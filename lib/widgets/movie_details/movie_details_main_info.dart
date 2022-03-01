@@ -79,6 +79,7 @@ class _TopPosterWidget extends StatelessWidget {
     final posterImage = posterPath != null
         ? Image.network(ApiClient.imageUrl(posterPath))
         : const Image(image: AppImages.eternalSecondaryTop);
+    final isFavorite = model?.isFavorite == true ? true : false;
     return Center(
       child: Container(
         child: Stack(
@@ -88,6 +89,17 @@ class _TopPosterWidget extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 6.0, top: 18.0, bottom: 18.0),
               child: posterImage,
+            ),
+            Positioned(
+              top: 10.0,
+              right: 10.0,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_outline,
+                    color: Colors.red,
+                    size: 30,
+                  )),
             ),
           ],
         ),
