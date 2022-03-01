@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/app_images.dart';
 import 'package:lazyload_flutter_course/domain/api_client/api_client.dart';
+import 'package:lazyload_flutter_course/domain/entity/movie_details_credits.dart';
 import 'package:lazyload_flutter_course/lessons_examples/draw_radial_percent_widget/radial_percent_widget.dart';
 import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
@@ -19,9 +20,9 @@ class MovieDetailsMainWidget extends StatelessWidget {
         SizedBox(height: 20.0),
         _OverviewHeader(),
         _OverviewText(),
-        SizedBox(height: 25),
+        SizedBox(height: 15),
         _Staff(),
-        SizedBox(height: 20.0),
+        SizedBox(height: 10),
       ],
     );
   }
@@ -209,9 +210,9 @@ class _SummaryWidget extends StatelessWidget {
     texts.add(duration);
 
     final genres = model.movieDetails?.genres;
-    if (genres != null && genres.isNotEmpty){
+    if (genres != null && genres.isNotEmpty) {
       var genresNames = [];
-      for(var genre in genres){
+      for (var genre in genres) {
         genresNames.add(genre.name);
       }
       final genresString = genresNames.join(', ');
@@ -237,6 +238,56 @@ class _Staff extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.watch<MovieDetailsModel>(context);
+    var crew = model?.movieDetails?.credits.crew;
+    if (crew == null || crew.isEmpty) return const SizedBox.shrink();
+    crew = crew.length > 4 ? crew.sublist(0, 4) : crew;
+    var crewChunks = <List<Crew>>[];
+    for (var i = 0; i < crew.length; i += 2) {
+      crewChunks.add(
+        crew.sublist(i, i + 2 > crew.length ? crew.length : i + 2),
+      );
+    }
+    return Column(
+      children: crewChunks
+          .map(
+            (chunk) => Padding(
+              padding: const EdgeInsets.only(bottom: 18.0),
+              child: _StaffRowWidget(
+                crew: chunk,
+              ),
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+class _StaffRowWidget extends StatelessWidget {
+  final List<Crew> crew;
+  const _StaffRowWidget({Key? key, required this.crew}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+      child: Row(
+        children: crew
+            .map((unit) => _StaffRowWidgetItem(
+                  unit: unit,
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
+class _StaffRowWidgetItem extends StatelessWidget {
+  final Crew unit;
+  const _StaffRowWidgetItem({Key? key, required this.unit}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     const staffNameStyle = TextStyle(
       color: Colors.white,
       fontSize: 16,
@@ -246,74 +297,15 @@ class _Staff extends StatelessWidget {
       color: Colors.white,
       fontSize: 14,
     );
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Мишель Гондри',
-                  style: staffNameStyle,
-                ),
-                Text(
-                  'Режиссер',
-                  style: staffRoleStyle,
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Чарли Кауфман',
-                  style: staffNameStyle,
-                ),
-                Text(
-                  'Сценарий',
-                  style: staffRoleStyle,
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 18,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Джим Керри',
-                  style: staffNameStyle,
-                ),
-                Text(
-                  'В главных ролях',
-                  style: staffRoleStyle,
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Кейт Уинслет',
-                  style: staffNameStyle,
-                ),
-                Text(
-                  'В главных ролях',
-                  style: staffRoleStyle,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(unit.name, style: staffNameStyle),
+          Text(unit.job, style: staffRoleStyle),
+        ],
+      ),
     );
   }
 }
+
