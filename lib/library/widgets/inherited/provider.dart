@@ -25,7 +25,7 @@ class NotifierProvider<Model extends ChangeNotifier> extends StatefulWidget {
   static Model? read<Model extends ChangeNotifier>(BuildContext context) {
     final widget = context
         .getElementForInheritedWidgetOfExactType<
-        InheritedNotifierProvider<Model>>()
+            InheritedNotifierProvider<Model>>()
         ?.widget;
     return widget is InheritedNotifierProvider<Model> ? widget.model : null;
   }
@@ -67,7 +67,6 @@ class InheritedNotifierProvider<Model extends ChangeNotifier>
     required Widget child,
     required this.model,
   }) : super(key: key, notifier: model, child: child);
-
 }
 
 class Provider<Model> extends InheritedWidget {

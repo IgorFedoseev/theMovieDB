@@ -271,23 +271,20 @@ class ApiClient {
     return result;
   }
 
-  Future<String> markAsFavorite({
+  Future<int> markAsFavorite({
     required int accountId,
     required String sessionId,
     required MediaType mediaType,
-    required String mediaId,
+    required int mediaId,
     required bool isFavorite,
   }) async {
-    String parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      final token = jsonMap['request_token'] as String;
-      return token;
+    int parser(dynamic json) {
+      return 1;
     }
-
     final Map<String, dynamic> bodyParameters = {
       'media_type': mediaType.asString(),
-      'media_id': mediaId,
-      'favorite': isFavorite.toString(),
+      'media_id': mediaId.toString(),
+      'favorite': isFavorite,
     };
     final result = _post(
       '/account/$accountId/favorite',
