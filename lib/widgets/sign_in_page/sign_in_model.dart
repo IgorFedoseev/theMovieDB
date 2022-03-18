@@ -47,6 +47,8 @@ class SignInModel extends ChangeNotifier {
         case ApiClientExceptionType.other:
           _errorMessage = 'Что-то пошло не так, повторите попытку';
           break;
+        default:
+          break;
       }
     } catch (e) {
       _errorMessage = 'Что-то пошло не так, повторите попытку';

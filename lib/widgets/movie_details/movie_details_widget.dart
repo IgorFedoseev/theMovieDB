@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazyload_flutter_course/library/widgets/inherited/provider.dart';
+import 'package:lazyload_flutter_course/widgets/app/my_app_model.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_cast_screen.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_main_info.dart';
 import 'package:lazyload_flutter_course/widgets/movie_details/movie_details_model.dart';
@@ -14,11 +15,18 @@ class MovieDetailsWidget extends StatefulWidget {
 
 class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
   @override
+  void initState() {
+    super.initState();
+    final model = NotifierProvider.read<MovieDetailsModel>(context);
+    final appModel = Provider.read<AppMovieModel>(context);
+    model?.onSessionExpired = () => appModel?.resetSession(context);
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     NotifierProvider.read<MovieDetailsModel>(context)?.setupLocale(context);
   }
-
 
   @override
   Widget build(BuildContext context) {

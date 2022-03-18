@@ -8,6 +8,7 @@ enum ApiClientExceptionType {
   network, // ошибка сети
   auth, // ошибка авторизации
   other, // прочее
+  sessionExpired, // истек срок токена
 }
 
 enum MediaType { movie, tv }
@@ -304,6 +305,8 @@ class ApiClient {
       final code = status is int ? status : 0;
       if (code == 30) {
         throw ApiClientException(ApiClientExceptionType.auth);
+      } else if (code == 3){
+        throw ApiClientException(ApiClientExceptionType.sessionExpired);
       } else {
         throw ApiClientException(ApiClientExceptionType.other);
       }
