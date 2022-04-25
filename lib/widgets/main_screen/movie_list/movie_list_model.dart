@@ -48,14 +48,14 @@ class MovieListModel extends ChangeNotifier {
 
   Future<void> _loadNextPage() async {
     if(_isLoadingInProgress || _currentPage >= _totalPage) return;
-    _isLoadingInProgress = true;
+    _isLoadingInProgress = true; // помечаем что данные грузятся
     final nextPage = _currentPage + 1;
     try{
       final moviesResponse = await _loadMovies(nextPage, _locale);
       _movies.addAll(moviesResponse.movies);
       _currentPage = moviesResponse.page;
       _totalPage = moviesResponse.totalPages;
-      _isLoadingInProgress = false;
+      _isLoadingInProgress = false; // помечаем что данные загрузились
       notifyListeners();
     } catch (e){
       _isLoadingInProgress = false;

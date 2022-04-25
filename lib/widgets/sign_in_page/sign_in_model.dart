@@ -7,8 +7,8 @@ class SignInModel extends ChangeNotifier {
   final _apiClient = ApiClient();
   final _sessionDataProvider = SessionDataProvider();
 
-  final loginTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  final loginTextController = TextEditingController(text: 'Igor5656');
+  final passwordTextController = TextEditingController(text: 'TheMovieDB5656');
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;

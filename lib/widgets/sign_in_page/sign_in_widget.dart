@@ -15,7 +15,7 @@ class _SignInWidgetState extends State<SignInWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login to your account'),
+        title: const Text('Войти в аккаунт'),
         elevation: 5.0,
       ),
       body: ListView(
@@ -96,7 +96,7 @@ class _FormWidget extends StatelessWidget {
       children: [
         const _ErrorMessageWidget(),
         const Text(
-          'Username',
+          'Логин',
           style: textStyle,
         ),
         TextField(
@@ -105,7 +105,7 @@ class _FormWidget extends StatelessWidget {
         ),
         const SizedBox(height: 20.0),
         const Text(
-          'Password',
+          'Пароль',
           style: textStyle,
         ),
         TextField(
@@ -121,7 +121,7 @@ class _FormWidget extends StatelessWidget {
             TextButton(
               onPressed: () {},
               style: AppButtonStyle.linkButton,
-              child: const Text('Reset password'),
+              child: const Text('Сбросить пароль'),
             )
           ],
         ),
@@ -146,7 +146,7 @@ class _AuthButtonWidget extends StatelessWidget {
             height: 15,
             width: 15,
           )
-        : const Text('Sign in');
+        : const Text('Войти');
     return ElevatedButton(
       onPressed: onPressed,
       style: ButtonStyle(

@@ -191,7 +191,6 @@ class ApiClient {
       final response = PopularMovieResponse.fromJson(jsonMap);
       return response;
     }
-
     final result = _get(
       '/movie/popular',
       parser,
